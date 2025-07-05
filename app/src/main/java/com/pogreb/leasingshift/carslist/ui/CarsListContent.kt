@@ -29,14 +29,14 @@ import com.pogreb.leasingshift.formatCarName
 import com.pogreb.leasingshift.main.entity.enums.Transmission
 import com.pogreb.leasingshift.ui.theme.CustomTextStyle
 
-val days = 14
+const val days = 14
 
 @Composable
 fun CarsListContent(
-    state: CarsListState.Content,
+    state: CarsListState,
 ) {
     CarsList(
-        carsItemListItems = state.cars
+        carsItemListItems = state.cars.orEmpty()
     )
 }
 
@@ -55,14 +55,33 @@ private fun CarsList(
 @Composable
 private fun CarsListListItem(item: CarsItem) {
 
-
+    /*val coverImageUrl = remember(item.media) {
+            item.media.firstOrNull { it.isCover }?.url?.let {
+                "https://shift-intensive.ru$it"
+            }
+        }*/
 
     Row(
         Modifier
             .padding(vertical = 8.dp, horizontal = 16.dp)
 
     ) {
-
+        /*coverImageUrl?.let { url ->
+            GlideImage(
+                model = url,
+                contentDescription = "Car image",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(200.dp)
+                    .clip(RoundedCornerShape(8.dp)),
+                contentScale = ContentScale.Crop
+            ) {
+                it
+                    .placeholder(R.drawable.placeholder)
+                    .error(R.drawable.error_image)
+            }
+            Spacer(modifier = Modifier.height(12.dp))
+        }*/ // Выдает ошибку 502 Bad Gateway, не могу разобраться почему. Поэтому пока что будет заглушка
 
         Image(
             painter = painterResource(id = R.drawable.error_image),

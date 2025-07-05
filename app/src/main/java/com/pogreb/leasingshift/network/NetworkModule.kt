@@ -34,7 +34,7 @@ object NetworkModule {
 		.writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
 		.build()
 
-	private val retrofit = Retrofit.Builder()
+	val retrofit = Retrofit.Builder()
 		.client(okHttpClient)
 		.baseUrl(BASE_URL)
 		.addConverterFactory(converterFactory)

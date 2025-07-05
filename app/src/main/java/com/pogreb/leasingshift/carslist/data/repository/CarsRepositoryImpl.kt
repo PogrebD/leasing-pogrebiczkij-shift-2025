@@ -11,5 +11,4 @@ class CarsRepositoryImpl(
 ) : CarRepository {
     override suspend fun getAllCars(): List<CarsItem> =
         api.getAllCars().data.map { converter.convert(it) }
-
 }
