@@ -1,4 +1,4 @@
-package com.pogreb.leasingshift.carslist.data
+package com.pogreb.leasingshift.carslist.data.entity
 
 import com.pogreb.leasingshift.main.entity.Media
 import com.pogreb.leasingshift.main.entity.enums.BodyType
