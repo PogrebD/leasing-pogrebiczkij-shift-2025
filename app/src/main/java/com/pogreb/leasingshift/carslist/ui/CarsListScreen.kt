@@ -19,18 +19,16 @@ import com.pogreb.leasingshift.ui.theme.CustomTextStyle
 import com.pogreb.leasingshift.carslist.di.CarsListProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.pogreb.leasingshift.carslist.presentation.Status
+import com.pogreb.leasingshift.main.Title
 
 
 @Composable
 fun CarsListScreen(
+    carsListViewModel: CarsListViewModel,
+    onItemClick: (loanId: Long) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val carsListViewModel: CarsListViewModel = viewModel(
-        factory = CarsListViewModelFactory(
-            CarsListProvider.getCarsListUseCase,
-            CarsListProvider.getFoundCarsUseCase,
-        )
-    )
+
 
     val state by carsListViewModel.state.collectAsState()
 
@@ -42,7 +40,7 @@ fun CarsListScreen(
         modifier = modifier
             .fillMaxSize()
     ) {
-        Title()
+        Title(R.string.cars)
 
         when (val currentState = state.status) {
 
@@ -50,6 +48,7 @@ fun CarsListScreen(
 
             is Status.Idle -> CarsListContent(
                 state = currentState,
+                onItemClick = onItemClick,
                 onSearchValueChange = { carsListViewModel.searchCars(it) },
             )
 
@@ -63,13 +62,4 @@ fun CarsListScreen(
     }
 }
 
-@Composable
-private fun Title() {
-    Text(
-        text = stringResource(R.string.cars),
-        style = CustomTextStyle.appTitle,
-        modifier = Modifier
-            .padding(top = 16.dp, start = 16.dp, end = 16.dp)
-            .height(56.dp),
-    )
-}
+

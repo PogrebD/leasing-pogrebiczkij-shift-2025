@@ -10,4 +10,9 @@
     <string name="error_title">Произошла ошибка</string>
     <string name="error_try_again">Повторить</string>
     <string name="error_unknown_error">Неизвестная ошибка</string>
+    <string name="profile">Профиль</string>
+    <string name="profile_annotation">Здесь должен быть профиль, но делать я его конечно же не буду</string>
+    <string name="orders">Заказы</string>
+    <string name="orders_annotation">Здесь должены быть заказы, но делать я их конечно же не буду</string>
+    <string name="in_development">В разработке</string>
 </resources>

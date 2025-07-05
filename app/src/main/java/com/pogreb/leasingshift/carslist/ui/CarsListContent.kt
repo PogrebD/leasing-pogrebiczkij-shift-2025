@@ -2,6 +2,7 @@ package com.pogreb.leasingshift.carslist.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -42,6 +43,7 @@ const val days = 14
 @Composable
 fun CarsListContent(
     state: Status.Idle,
+    onItemClick: (loanId: Long) -> Unit,
     onSearchValueChange: (String) -> Unit,
 ) {
     Search(
@@ -50,7 +52,11 @@ fun CarsListContent(
     )
 
     when (val searchState = state.searchState) {
-        is SearchState.Found -> CarsList(carsListItems = searchState.cars)
+        is SearchState.Found -> CarsList(
+            carsListItems = searchState.cars,
+            onItemClick = onItemClick
+        )
+
         is SearchState.NotFound -> NotFoundText()
     }
 }
@@ -58,17 +64,21 @@ fun CarsListContent(
 @Composable
 private fun CarsList(
     carsListItems: List<CarsItem> = emptyList(),
+    onItemClick: (loanId: Long) -> Unit,
 ) {
     LazyColumn(modifier = Modifier.fillMaxHeight()) {
         items(carsListItems) { item ->
-            CarsListItem(item = item)
+            CarsListItem(item = item, onClick = onItemClick)
         }
     }
 }
 
 
 @Composable
-private fun CarsListItem(item: CarsItem) {
+private fun CarsListItem(
+    item: CarsItem,
+    onClick: (loanId: Long) -> Unit,
+) {
 
     /*val coverImageUrl = remember(item.media) {
             item.media.firstOrNull { it.isCover }?.url?.let {
@@ -79,7 +89,7 @@ private fun CarsListItem(item: CarsItem) {
     Row(
         Modifier
             .padding(vertical = 8.dp, horizontal = 16.dp)
-
+            .clickable { onClick(item.id) }
     ) {
         /*coverImageUrl?.let { url ->
             GlideImage(
@@ -202,12 +212,13 @@ private fun Search(
             onValueChange = onValueChange,
             shape = RoundedCornerShape(8.dp),
             label = {
-                Text(text = stringResource(R.string.search),
+                Text(
+                    text = stringResource(R.string.search),
                     color = TextQuartenery
                 )
             },
 
-        )
+            )
     }
 }
 
