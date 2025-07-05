@@ -1,4 +1,4 @@
-package com.pogreb.leasingshift
+package com.pogreb.leasingshift.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
