@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.jetbrains.kotlin.serialization)
 }
 
 android {
@@ -40,6 +41,20 @@ android {
 }
 
 dependencies {
+
+    implementation(libs.retrofit.core)
+
+    implementation(platform(libs.okhttp.bom))
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
+
+    implementation(libs.retrofit.converter.kotlinxserialization)
+    implementation(libs.kotlinx.serialization.json)
+
+    implementation(libs.glide)
+    implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
+
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
