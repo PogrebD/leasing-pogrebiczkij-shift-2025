@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">LeasingShift</string>
+
+    <string name="cars">Автомобили</string>
+    <string name="search">Поиск</string>
+    <string name="search_not_found">По вашему запросу ничего не найдено</string>
+    <string name="car_name_and_brand">%s %s</string>
+    <string name="price">%d ₽</string>
+    <string name="price_for_amount_days">%d ₽ за %d дней</string>
+    <string name="error_title">Произошла ошибка</string>
+    <string name="error_try_again">Повторить</string>
+    <string name="error_unknown_error">Неизвестная ошибка</string>
 </resources>

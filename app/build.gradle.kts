@@ -51,6 +51,9 @@ dependencies {
     implementation(libs.retrofit.converter.kotlinxserialization)
     implementation(libs.kotlinx.serialization.json)
 
+    implementation(libs.glide)
+    implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
