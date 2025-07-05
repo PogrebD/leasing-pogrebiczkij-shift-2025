@@ -25,4 +25,10 @@ object CustomTextStyle {
         fontSize = 28.sp,
         fontWeight = FontWeight.Bold,
     )
+
+    val overInput: TextStyle = TextStyle(
+    color = TextPrimary,
+    fontSize = 14.sp,
+    fontWeight = FontWeight.Normal,
+    )
 }
