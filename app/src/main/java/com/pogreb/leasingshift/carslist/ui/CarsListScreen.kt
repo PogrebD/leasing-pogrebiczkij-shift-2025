@@ -15,10 +15,10 @@ import androidx.compose.ui.unit.dp
 import com.pogreb.leasingshift.R
 import com.pogreb.leasingshift.carslist.di.CarsListViewModelFactory
 import com.pogreb.leasingshift.carslist.presentation.CarsListViewModel
-import com.pogreb.leasingshift.main.entity.Status
 import com.pogreb.leasingshift.ui.theme.CustomTextStyle
 import com.pogreb.leasingshift.carslist.di.CarsListProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.pogreb.leasingshift.carslist.presentation.Status
 
 
 @Composable
@@ -28,6 +28,7 @@ fun CarsListScreen(
     val carsListViewModel: CarsListViewModel = viewModel(
         factory = CarsListViewModelFactory(
             CarsListProvider.getCarsListUseCase,
+            CarsListProvider.getFoundCarsUseCase,
         )
     )
 
@@ -48,7 +49,8 @@ fun CarsListScreen(
             Status.Loading -> FullScreenProgressIndicator()
 
             is Status.Idle -> CarsListContent(
-                state = state,
+                state = currentState,
+                onSearchValueChange = { carsListViewModel.searchCars(it) },
             )
 
             is Status.Error -> CarsListError(
