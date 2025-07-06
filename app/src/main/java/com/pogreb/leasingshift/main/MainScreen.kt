@@ -6,8 +6,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -28,8 +26,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.pogreb.leasingshift.R
-import com.pogreb.leasingshift.carcard.CarCardRoute
-import com.pogreb.leasingshift.carcard.CarCardScreen
+import com.pogreb.leasingshift.carinfo.CarInfoRoute
+import com.pogreb.leasingshift.carinfo.CarInfoScreen
 import com.pogreb.leasingshift.carslist.CarsListRoute
 import com.pogreb.leasingshift.carslist.di.CarsListProvider
 import com.pogreb.leasingshift.carslist.di.CarsListViewModelFactory
@@ -40,7 +38,6 @@ import com.pogreb.leasingshift.orders.OrdersRoute
 import com.pogreb.leasingshift.orders.OrdersScreen
 import com.pogreb.leasingshift.profile.ProfileRoute
 import com.pogreb.leasingshift.profile.ProfileScreen
-import com.pogreb.leasingshift.ui.theme.BGPrimary
 import com.pogreb.leasingshift.ui.theme.BGSecondary
 import com.pogreb.leasingshift.ui.theme.BorderMedium
 import com.pogreb.leasingshift.ui.theme.Brand
@@ -69,14 +66,14 @@ fun MainScreen() {
                     CarsListScreen(
                         carsListViewModel = carsListViewModel,
                         onItemClick = { carId ->
-                            navController.navigate(CarCardRoute(carId))
+                            navController.navigate(CarInfoRoute(carId))
                         }
                     )
                 }
-                composable<CarCardRoute> {
-                    val destination = it.toRoute<CarCardRoute>()
+                composable<CarInfoRoute> {
+                    val destination = it.toRoute<CarInfoRoute>()
 
-                    CarCardScreen(
+                    CarInfoScreen(
                         destination.carId
                     )
                 }
