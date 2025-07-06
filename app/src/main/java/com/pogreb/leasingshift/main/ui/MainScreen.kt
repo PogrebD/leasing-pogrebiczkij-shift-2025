@@ -1,7 +1,8 @@
-package com.pogreb.leasingshift.main
+package com.pogreb.leasingshift.main.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
@@ -27,7 +28,10 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.pogreb.leasingshift.R
 import com.pogreb.leasingshift.carinfo.CarInfoRoute
-import com.pogreb.leasingshift.carinfo.CarInfoScreen
+import com.pogreb.leasingshift.carinfo.di.CarInfoProvider
+import com.pogreb.leasingshift.carinfo.di.CarInfoViewModelFactory
+import com.pogreb.leasingshift.carinfo.presentation.CarInfoViewModel
+import com.pogreb.leasingshift.carinfo.ui.CarInfoScreen
 import com.pogreb.leasingshift.carslist.CarsListRoute
 import com.pogreb.leasingshift.carslist.di.CarsListProvider
 import com.pogreb.leasingshift.carslist.di.CarsListViewModelFactory
@@ -48,7 +52,7 @@ fun MainScreen() {
     val navController = rememberNavController()
     val selectedTab = rememberSaveable { mutableStateOf(NavigationOption.CARSLIST) }
 
-    Scaffold { paddingValues: PaddingValues ->
+    Scaffold() { paddingValues: PaddingValues ->
         Column(modifier = Modifier.padding(top = paddingValues.calculateTopPadding())) {
             NavHost(
                 modifier = Modifier.weight(1f),
@@ -72,9 +76,18 @@ fun MainScreen() {
                 }
                 composable<CarInfoRoute> {
                     val destination = it.toRoute<CarInfoRoute>()
+                    val carInfoViewModel: CarInfoViewModel = viewModel(
+                        factory = CarInfoViewModelFactory(
+                            CarInfoProvider.getCarInfoUseCase,
+                            destination.carId,
+                        )
+                    )
 
                     CarInfoScreen(
-                        destination.carId
+                        carInfoViewModel = carInfoViewModel,
+                        carId = destination.carId,
+                        onReserveClick = {},
+                        onBackClick = { navController.navigate(route = CarsListRoute) },
                     )
                 }
                 composable<OrdersRoute> {

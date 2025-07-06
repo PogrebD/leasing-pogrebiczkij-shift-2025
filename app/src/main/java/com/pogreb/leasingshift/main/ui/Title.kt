@@ -1,4 +1,4 @@
-package com.pogreb.leasingshift.main
+package com.pogreb.leasingshift.main.ui
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding

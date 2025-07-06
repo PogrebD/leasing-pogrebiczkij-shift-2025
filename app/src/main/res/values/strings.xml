@@ -1,12 +1,14 @@
 <resources>
     <string name="app_name">LeasingShift</string>
 
+    <string name="car_name_and_brand">%s %s</string>
+    <string name="price_ru">%d ₽</string>
+    <string name="price_for_amount_days">%d ₽ за %d дней</string>
+    <string name="total_price">Итого: %d ₽</string>
+
     <string name="cars">Автомобили</string>
     <string name="search">Поиск</string>
     <string name="search_not_found">По вашему запросу ничего не найдено</string>
-    <string name="car_name_and_brand">%s %s</string>
-    <string name="price">%d ₽</string>
-    <string name="price_for_amount_days">%d ₽ за %d дней</string>
     <string name="error_title">Произошла ошибка</string>
     <string name="error_try_again">Повторить</string>
     <string name="error_unknown_error">Неизвестная ошибка</string>
@@ -15,4 +17,29 @@
     <string name="orders">Заказы</string>
     <string name="orders_annotation">Здесь должены быть заказы, но делать я их конечно же не буду</string>
     <string name="in_development">В разработке</string>
+    <string name="characteristics">Характеристики</string>
+    <string name="transmission">Коробка передач</string>
+    <string name="automatic">Автоматическая</string>
+    <string name="manual">Механическая</string>
+    <string name="steering">Сторона руля</string>
+    <string name="right">Справа</string>
+    <string name="left">Слева</string>
+    <string name="body_type">Тип кузова</string>
+    <string name="sedan">Седан</string>
+    <string name="suv">Внедорожник</string>
+    <string name="hatchback">Хетчбэк</string>
+    <string name="cabriolet">Кабриолет</string>
+    <string name="coupe">Купе</string>
+    <string name="color">Цвет</string>
+    <string name="black">Черный</string>
+    <string name="white">Белый</string>
+    <string name="red">Красный</string>
+    <string name="silver">Серебристый</string>
+    <string name="blue">Синий</string>
+    <string name="grey">Серый</string>
+    <string name="orange">Оранжевый</string>
+    <string name="price">Стоимость</string>
+    <string name="total_rent">Аренда: 10-24 апреля 2025 (14 дней)</string>
+    <string name="back">Назад</string>
+    <string name="reserve">Забронировать</string>
 </resources>
