@@ -1,7 +1,5 @@
 package com.pogreb.leasingshift.carslist.ui
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,27 +12,30 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 import com.pogreb.leasingshift.R
 import com.pogreb.leasingshift.carslist.domain.entity.CarsItem
-import com.pogreb.leasingshift.carslist.presentation.CarsListState
 import com.pogreb.leasingshift.carslist.presentation.SearchState
 import com.pogreb.leasingshift.carslist.presentation.Status
 import com.pogreb.leasingshift.formatCarName
 import com.pogreb.leasingshift.main.entity.enums.Transmission
+import com.pogreb.leasingshift.ui.theme.BorderExtralight
 import com.pogreb.leasingshift.ui.theme.CustomTextStyle
 import com.pogreb.leasingshift.ui.theme.TextQuartenery
 
@@ -67,37 +68,49 @@ private fun CarsList(
     onItemClick: (loanId: Long) -> Unit,
 ) {
     LazyColumn(modifier = Modifier.fillMaxHeight()) {
-        items(carsListItems) { item ->
-            CarsListItem(item = item, onClick = onItemClick)
+        itemsIndexed(carsListItems) { index, item ->
+            CarsListItem(
+                item = item,
+                onClick = onItemClick
+            )
+            if (index < carsListItems.lastIndex) {
+                HorizontalDivider(
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    thickness = 1.dp,
+                    color = BorderExtralight,
+                )
+            }
         }
     }
 }
 
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
 private fun CarsListItem(
     item: CarsItem,
     onClick: (loanId: Long) -> Unit,
 ) {
 
-    /*val coverImageUrl = remember(item.media) {
-            item.media.firstOrNull { it.isCover }?.url?.let {
-                "https://shift-intensive.ru$it"
-            }
-        }*/
+    val coverImageUrl = remember(item.media) {
+        item.media.firstOrNull { it.isCover }?.url?.let {
+            "https://shift-intensive.ru/api$it"
+        }
+    }
 
     Row(
-        Modifier
+        modifier = Modifier
             .padding(vertical = 8.dp, horizontal = 16.dp)
-            .clickable { onClick(item.id) }
+            .clickable { onClick(item.id) },
     ) {
-        /*coverImageUrl?.let { url ->
+        coverImageUrl?.let { url ->
             GlideImage(
                 model = url,
                 contentDescription = "Car image",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(200.dp)
+                    .height(116.dp)
+                    .weight(1f)
                     .clip(RoundedCornerShape(8.dp)),
                 contentScale = ContentScale.Crop
             ) {
@@ -106,18 +119,7 @@ private fun CarsListItem(
                     .error(R.drawable.error_image)
             }
             Spacer(modifier = Modifier.height(12.dp))
-        }*/ // Выдает ошибку 502 Bad Gateway, не могу разобраться почему. Поэтому пока что будет заглушка
-
-        Image(
-            painter = painterResource(id = R.drawable.error_image),
-            contentDescription = stringResource(id = R.string.error_title),
-            modifier = Modifier
-                .height(116.dp)
-                .background(Color.Gray)
-                .weight(1f)
-                .clip(RoundedCornerShape(8.dp)),
-
-            )
+        }
 
         Spacer(
             Modifier.width(

@@ -3,9 +3,14 @@ package com.pogreb.leasingshift.carinfo.ui
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.FilledTonalButton
@@ -14,12 +19,17 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
+import com.bumptech.glide.integration.compose.GlideImage
 import com.pogreb.leasingshift.R
 import com.pogreb.leasingshift.carinfo.domain.entity.CarInfo
 import com.pogreb.leasingshift.formatCarName
+import com.pogreb.leasingshift.main.entity.Media
 import com.pogreb.leasingshift.main.entity.enums.getStringResourceId
 import com.pogreb.leasingshift.main.ui.Total
 import com.pogreb.leasingshift.ui.theme.BorderExtralight
@@ -33,19 +43,20 @@ fun CarInfoContent(
 ) {
     Column()
     {
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth()
         )
         {
-            ImageScroll()
+            item { ImageScroll(car.media)
 
-            Characteristics(car)
+                Characteristics(car)
 
-            Spacer(modifier = Modifier.height(24.dp))
+                Spacer(modifier = Modifier.height(24.dp))
 
-            TotalPrice(car.price)
+                TotalPrice(car.price) }
+
         }
 
         Buttons(onBackClick, onReserveClick)
@@ -93,9 +104,27 @@ fun ReservationButton(onReserveClick: () -> Unit) {
     }
 }
 
+@OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun ImageScroll() {
-
+fun ImageScroll(media: List<Media>) {
+    LazyRow(modifier = Modifier.fillMaxWidth()) {
+        items(media) { item, ->
+            GlideImage(
+                model = "https://shift-intensive.ru/api" + item.url,
+                contentDescription = "Car image",
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(220.dp)
+                    .width(328.dp)
+                    .clip(RoundedCornerShape(8.dp)),
+                contentScale = ContentScale.FillBounds
+            ) {
+                it
+                    .placeholder(R.drawable.placeholder)
+                    .error(R.drawable.error_image)
+            }
+        }
+    }
 }
 
 @Composable
