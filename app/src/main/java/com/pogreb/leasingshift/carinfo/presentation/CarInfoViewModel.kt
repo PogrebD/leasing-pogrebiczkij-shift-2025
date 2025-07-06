@@ -19,10 +19,6 @@ class CarInfoViewModel(
     private val _state = MutableStateFlow<CarInfoState>(CarInfoState(Status.Loading))
     val state: StateFlow<CarInfoState> = _state.asStateFlow()
 
-    init {
-        loadData()
-    }
-
     fun loadData() {
 
         _state.update { it.copy(status = Status.Loading) }
@@ -33,7 +29,7 @@ class CarInfoViewModel(
                 _state.update {
                     it.copy(
                         status = Status.Idle(
-                            cars = carInfo
+                            car = carInfo
                         )
                     )
                 }

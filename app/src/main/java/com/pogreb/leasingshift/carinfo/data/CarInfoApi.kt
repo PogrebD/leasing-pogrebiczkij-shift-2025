@@ -5,7 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface CarInfoApi {
-    @GET("/api/car/{carId}")
+    @GET("/api/cars/info/{carId}")
     suspend fun getCarById(@Path("carId") carId: Long): ApiResponse
 
 }

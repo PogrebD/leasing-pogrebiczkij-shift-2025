@@ -9,15 +9,15 @@ import com.pogreb.leasingshift.main.entity.enums.Steering
 import com.pogreb.leasingshift.main.entity.enums.Transmission
 
 data class CarInfo(
-val id: Long,
-val name: String,
-val brand: Brand,
-val media:  List<Media>,
-val transmission: Transmission,
-val price: Double,
-val location: String,
-val color: Color,
-val bodyType: BodyType,
-val steering: Steering,
-val rents: Rents,
+    val id: Long,
+    val name: String,
+    val brand: Brand,
+    val media:  List<Media>,
+    val transmission: Transmission,
+    val price: Double,
+    val location: String,
+    val color: Color,
+    val bodyType: BodyType,
+    val steering: Steering,
+    val rents: List<Rents>,
 )

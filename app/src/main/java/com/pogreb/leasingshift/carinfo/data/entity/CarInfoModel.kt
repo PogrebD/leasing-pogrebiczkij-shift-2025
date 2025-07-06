@@ -20,5 +20,5 @@ data class CarInfoModel(
     val color: Color,
     val bodyType: BodyType,
     val steering: Steering,
-    val rents: Rents,
+    val rents: List<Rents>,
 )

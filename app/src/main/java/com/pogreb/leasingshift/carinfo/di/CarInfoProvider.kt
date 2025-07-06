@@ -8,16 +8,9 @@ import com.pogreb.leasingshift.carinfo.data.repository.CarInfoRepositoryImpl
 import com.pogreb.leasingshift.carinfo.domain.repository.CarInfoRepository
 import com.pogreb.leasingshift.carinfo.domain.usecase.GetCarInfoUseCase
 import com.pogreb.leasingshift.carinfo.presentation.CarInfoViewModel
-import com.pogreb.leasingshift.carslist.data.CarsApi
-import com.pogreb.leasingshift.carslist.data.converter.CarsItemConverter
-import com.pogreb.leasingshift.carslist.data.repository.CarsRepositoryImpl
-import com.pogreb.leasingshift.carslist.domain.repository.CarRepository
-import com.pogreb.leasingshift.carslist.domain.usecase.GetCarsListUseCase
-import com.pogreb.leasingshift.carslist.domain.usecase.GetFoundCarsUseCase
-import com.pogreb.leasingshift.carslist.presentation.CarsListViewModel
 import com.pogreb.leasingshift.network.NetworkModule
 
-object CarsListProvider {
+object CarInfoProvider {
 
     private val carInfoApi: CarInfoApi = NetworkModule.retrofit.create(CarInfoApi::class.java)
     private val carInfoConverter = CarInfoConverter()
@@ -33,7 +26,7 @@ class CarInfoViewModelFactory(
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(CarsListViewModel::class.java)) {
+        if (modelClass.isAssignableFrom(CarInfoViewModel::class.java)) {
             return CarInfoViewModel(id, getCarInfoUseCase) as T
         }
         throw IllegalArgumentException("It can provide only login viewModel")
