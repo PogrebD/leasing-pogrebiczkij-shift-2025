@@ -1,13 +1,12 @@
-package com.pogreb.leasingshift.main
+package com.pogreb.leasingshift.main.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -28,8 +27,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.pogreb.leasingshift.R
-import com.pogreb.leasingshift.carcard.CarCardRoute
-import com.pogreb.leasingshift.carcard.CarCardScreen
+import com.pogreb.leasingshift.carinfo.CarInfoRoute
+import com.pogreb.leasingshift.carinfo.di.CarInfoProvider
+import com.pogreb.leasingshift.carinfo.di.CarInfoViewModelFactory
+import com.pogreb.leasingshift.carinfo.presentation.CarInfoViewModel
+import com.pogreb.leasingshift.carinfo.ui.CarInfoScreen
 import com.pogreb.leasingshift.carslist.CarsListRoute
 import com.pogreb.leasingshift.carslist.di.CarsListProvider
 import com.pogreb.leasingshift.carslist.di.CarsListViewModelFactory
@@ -40,7 +42,6 @@ import com.pogreb.leasingshift.orders.OrdersRoute
 import com.pogreb.leasingshift.orders.OrdersScreen
 import com.pogreb.leasingshift.profile.ProfileRoute
 import com.pogreb.leasingshift.profile.ProfileScreen
-import com.pogreb.leasingshift.ui.theme.BGPrimary
 import com.pogreb.leasingshift.ui.theme.BGSecondary
 import com.pogreb.leasingshift.ui.theme.BorderMedium
 import com.pogreb.leasingshift.ui.theme.Brand
@@ -51,7 +52,7 @@ fun MainScreen() {
     val navController = rememberNavController()
     val selectedTab = rememberSaveable { mutableStateOf(NavigationOption.CARSLIST) }
 
-    Scaffold { paddingValues: PaddingValues ->
+    Scaffold() { paddingValues: PaddingValues ->
         Column(modifier = Modifier.padding(top = paddingValues.calculateTopPadding())) {
             NavHost(
                 modifier = Modifier.weight(1f),
@@ -69,15 +70,24 @@ fun MainScreen() {
                     CarsListScreen(
                         carsListViewModel = carsListViewModel,
                         onItemClick = { carId ->
-                            navController.navigate(CarCardRoute(carId))
+                            navController.navigate(CarInfoRoute(carId))
                         }
                     )
                 }
-                composable<CarCardRoute> {
-                    val destination = it.toRoute<CarCardRoute>()
+                composable<CarInfoRoute> {
+                    val destination = it.toRoute<CarInfoRoute>()
+                    val carInfoViewModel: CarInfoViewModel = viewModel(
+                        factory = CarInfoViewModelFactory(
+                            CarInfoProvider.getCarInfoUseCase,
+                            destination.carId,
+                        )
+                    )
 
-                    CarCardScreen(
-                        destination.carId
+                    CarInfoScreen(
+                        carInfoViewModel = carInfoViewModel,
+                        carId = destination.carId,
+                        onReserveClick = {},
+                        onBackClick = { navController.navigate(route = CarsListRoute) },
                     )
                 }
                 composable<OrdersRoute> {

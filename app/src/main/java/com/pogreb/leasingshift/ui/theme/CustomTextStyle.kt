@@ -31,4 +31,16 @@ object CustomTextStyle {
     fontSize = 14.sp,
     fontWeight = FontWeight.Normal,
     )
+
+    val value: TextStyle = TextStyle(
+        color = TextPrimary,
+        fontSize = 16.sp,
+        fontWeight = FontWeight.Normal,
+    )
+
+    val label: TextStyle = TextStyle(
+        color = TextTertiary,
+        fontSize = 16.sp,
+        fontWeight = FontWeight.Normal,
+    )
 }

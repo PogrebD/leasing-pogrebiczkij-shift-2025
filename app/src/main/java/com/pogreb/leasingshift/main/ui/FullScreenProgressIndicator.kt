@@ -1,4 +1,4 @@
-package com.pogreb.leasingshift.carslist.ui
+package com.pogreb.leasingshift.main.ui
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

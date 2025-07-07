@@ -1,6 +1,8 @@
 package com.pogreb.leasingshift.network
 
 
+import com.pogreb.leasingshift.carinfo.data.CarInfoApi
+import com.pogreb.leasingshift.carinfo.data.converter.CarInfoConverter
 import com.pogreb.leasingshift.carslist.data.CarsApi
 import com.pogreb.leasingshift.carslist.data.converter.CarsItemConverter
 import kotlinx.serialization.json.Json
@@ -39,7 +41,4 @@ object NetworkModule {
 		.baseUrl(BASE_URL)
 		.addConverterFactory(converterFactory)
 		.build()
-
-	val carsApi: CarsApi = retrofit.create(CarsApi::class.java)
-	val carsItemConverter: CarsItemConverter = CarsItemConverter()
 }

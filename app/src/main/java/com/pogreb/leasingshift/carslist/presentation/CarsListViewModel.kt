@@ -18,10 +18,6 @@ class CarsListViewModel(
     private val _state = MutableStateFlow<CarsListState>(CarsListState(Status.Loading))
     val state: StateFlow<CarsListState> = _state.asStateFlow()
 
-    init {
-        loadData()
-    }
-
     fun loadData() {
 
         _state.update { it.copy(status = Status.Loading) }
