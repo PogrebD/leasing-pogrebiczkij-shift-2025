@@ -30,7 +30,7 @@ fun CarsListScreen(
         modifier = modifier
             .fillMaxSize()
     ) {
-        Title(R.string.cars)
+        Title(R.string.cars_title)
 
         when (val currentState = state) {
 

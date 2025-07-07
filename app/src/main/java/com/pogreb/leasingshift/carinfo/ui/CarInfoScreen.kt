@@ -18,7 +18,6 @@ import com.pogreb.leasingshift.main.ui.FullScreenProgressIndicator
 @Composable
 fun CarInfoScreen(
     carInfoViewModel: CarInfoViewModel,
-    carId: Long,
     onReserveClick: () -> Unit,
     onBackClick: () -> Unit,
 ) {

@@ -83,7 +83,7 @@ fun BackButton(onBackClick: () -> Unit) {
             .fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
     ) {
-        Text(stringResource(R.string.back))
+        Text(stringResource(R.string.back_button))
     }
 }
 
@@ -97,7 +97,7 @@ fun ReservationButton(onReserveClick: () -> Unit) {
         shape = RoundedCornerShape(16.dp),
 
         ) {
-        Text(stringResource(R.string.reserve))
+        Text(stringResource(R.string.reserve_button))
     }
 }
 
@@ -137,7 +137,7 @@ fun Characteristics(car: CarInfo) {
     Spacer(modifier = Modifier.height(16.dp))
 
     Text(
-        text = stringResource(R.string.characteristics),
+        text = stringResource(R.string.characteristics_title),
         style = CustomTextStyle.primary,
         modifier = Modifier
             .height(24.dp)
@@ -145,7 +145,7 @@ fun Characteristics(car: CarInfo) {
     )
 
     TextPair(
-        stringResource(R.string.transmission),
+        stringResource(R.string.transmission_heading),
         car.transmission.getStringResource()
     )
 
@@ -155,7 +155,7 @@ fun Characteristics(car: CarInfo) {
     )
 
     TextPair(
-        stringResource(R.string.steering),
+        stringResource(R.string.steering_heading),
         car.steering.getStringResource()
     )
 
@@ -165,7 +165,7 @@ fun Characteristics(car: CarInfo) {
     )
 
     TextPair(
-        stringResource(R.string.body_type),
+        stringResource(R.string.body_type_heading),
         car.bodyType.getStringResource()
     )
 
@@ -175,7 +175,7 @@ fun Characteristics(car: CarInfo) {
     )
 
     TextPair(
-        stringResource(R.string.color),
+        stringResource(R.string.color_heading),
         car.color.getStringResource()
     )
 }

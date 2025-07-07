@@ -71,8 +71,8 @@ class MainViewModel(
 
     fun getLabel(option: NavigationOption): Int =
         when (option) {
-            NavigationOption.CARSLIST -> R.string.cars
-            NavigationOption.ORDERS -> R.string.orders
-            NavigationOption.PROFILE -> R.string.profile
+            NavigationOption.CARSLIST -> R.string.cars_title
+            NavigationOption.ORDERS -> R.string.orders_title
+            NavigationOption.PROFILE -> R.string.profile_title
         }
 }

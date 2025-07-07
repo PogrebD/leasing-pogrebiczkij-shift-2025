@@ -14,12 +14,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,8 +32,8 @@ import com.pogreb.leasingshift.carslist.domain.entity.CarsItem
 import com.pogreb.leasingshift.carslist.presentation.CarsListState
 import com.pogreb.leasingshift.carslist.presentation.SearchState
 import com.pogreb.leasingshift.formatCarName
+import com.pogreb.leasingshift.formatUrlImage
 import com.pogreb.leasingshift.main.entity.enums.Transmission
-import com.pogreb.leasingshift.ui.theme.BorderExtralight
 import com.pogreb.leasingshift.ui.theme.CustomTextStyle
 import com.pogreb.leasingshift.ui.theme.TextQuartenery
 
@@ -67,23 +65,18 @@ private fun CarsList(
     carsListItems: List<CarsItem> = emptyList(),
     onItemClick: (loanId: Long) -> Unit,
 ) {
-    LazyColumn(modifier = Modifier.fillMaxHeight()) {
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxHeight(),
+    ) {
         itemsIndexed(carsListItems) { index, item ->
             CarsListItem(
                 item = item,
-                onClick = onItemClick
+                onClick = onItemClick,
             )
-            if (index < carsListItems.lastIndex) {
-                HorizontalDivider(
-                    modifier = Modifier.padding(horizontal = 16.dp),
-                    thickness = 1.dp,
-                    color = BorderExtralight,
-                )
-            }
         }
     }
 }
-
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
@@ -91,12 +84,11 @@ private fun CarsListItem(
     item: CarsItem,
     onClick: (loanId: Long) -> Unit,
 ) {
-
-    val coverImageUrl = remember(item.media) {
-        item.media.firstOrNull { it.isCover }?.url?.let {
-            "https://shift-intensive.ru/api$it"
+    val coverImageUrl = item.media
+        .firstOrNull { it.isCover }?.url?.let {
+            formatUrlImage(it)
         }
-    }
+
 
     Row(
         modifier = Modifier
@@ -112,7 +104,7 @@ private fun CarsListItem(
                     .height(116.dp)
                     .weight(1f)
                     .clip(RoundedCornerShape(8.dp)),
-                contentScale = ContentScale.Crop
+                contentScale = ContentScale.Crop,
             ) {
                 it
                     .placeholder(R.drawable.placeholder)

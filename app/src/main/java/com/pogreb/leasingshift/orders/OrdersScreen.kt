@@ -16,7 +16,7 @@ import com.pogreb.leasingshift.main.ui.Title
 @Composable
 fun OrdersScreen() {
     Column(modifier = Modifier.fillMaxSize()) {
-        Title(R.string.orders)
+        Title(R.string.orders_title)
 
         Box(
             modifier = Modifier

@@ -23,7 +23,6 @@ fun NavGraphBuilder.carInfo(navController: NavHostController) {
 
         CarInfoScreen(
             carInfoViewModel = carInfoViewModel,
-            carId = destination.carId,
             onReserveClick = {},
             onBackClick = { navController.navigate(route = CarsListRoute) },
         )
