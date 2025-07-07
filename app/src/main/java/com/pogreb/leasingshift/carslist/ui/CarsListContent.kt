@@ -31,8 +31,8 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.pogreb.leasingshift.R
 import com.pogreb.leasingshift.carslist.domain.entity.CarsItem
+import com.pogreb.leasingshift.carslist.presentation.CarsListState
 import com.pogreb.leasingshift.carslist.presentation.SearchState
-import com.pogreb.leasingshift.carslist.presentation.Status
 import com.pogreb.leasingshift.formatCarName
 import com.pogreb.leasingshift.main.entity.enums.Transmission
 import com.pogreb.leasingshift.ui.theme.BorderExtralight
@@ -43,7 +43,7 @@ const val days = 14
 
 @Composable
 fun CarsListContent(
-    state: Status.Idle,
+    state: CarsListState.Idle,
     onItemClick: (loanId: Long) -> Unit,
     onSearchValueChange: (String) -> Unit,
 ) {

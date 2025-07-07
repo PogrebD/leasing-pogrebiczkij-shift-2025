@@ -8,8 +8,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.pogreb.leasingshift.R
+import com.pogreb.leasingshift.carslist.presentation.CarsListState
 import com.pogreb.leasingshift.carslist.presentation.CarsListViewModel
-import com.pogreb.leasingshift.carslist.presentation.Status
 import com.pogreb.leasingshift.main.ui.FullScreenProgressIndicator
 import com.pogreb.leasingshift.main.ui.Title
 
@@ -32,17 +32,17 @@ fun CarsListScreen(
     ) {
         Title(R.string.cars)
 
-        when (val currentState = state.status) {
+        when (val currentState = state) {
 
-            Status.Loading -> FullScreenProgressIndicator()
+            CarsListState.Loading -> FullScreenProgressIndicator()
 
-            is Status.Idle -> CarsListContent(
+            is CarsListState.Idle -> CarsListContent(
                 state = currentState,
                 onItemClick = onItemClick,
                 onSearchValueChange = { carsListViewModel.searchCars(it) },
             )
 
-            is Status.Error -> CarsListError(
+            is CarsListState.Error -> CarsListError(
                 message = currentState.reason,
                 onRetry = {
                     carsListViewModel.loadData()
