@@ -1,34 +1,34 @@
 package com.pogreb.leasingshift.carinfo.di
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.pogreb.leasingshift.carinfo.data.CarInfoApi
 import com.pogreb.leasingshift.carinfo.data.converter.CarInfoConverter
 import com.pogreb.leasingshift.carinfo.data.repository.CarInfoRepositoryImpl
 import com.pogreb.leasingshift.carinfo.domain.repository.CarInfoRepository
-import com.pogreb.leasingshift.carinfo.domain.usecase.GetCarInfoUseCase
-import com.pogreb.leasingshift.carinfo.presentation.CarInfoViewModel
-import com.pogreb.leasingshift.network.NetworkModule
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+import retrofit2.Retrofit
 
-object CarInfoProvider {
+@Module
+@InstallIn(SingletonComponent::class)
+object CarInfoModule {
 
-    private val carInfoApi: CarInfoApi = NetworkModule.retrofit.create(CarInfoApi::class.java)
-    private val carInfoConverter = CarInfoConverter()
-    private val carInfoRepository: CarInfoRepository =
-        CarInfoRepositoryImpl(carInfoApi, carInfoConverter)
-    val getCarInfoUseCase = GetCarInfoUseCase(carInfoRepository)
-}
+    @Provides
+    fun provideCarInfoApi(retrofit: Retrofit): CarInfoApi {
+        return retrofit.create(CarInfoApi::class.java)
+    }
 
-@Suppress("UNCHECKED_CAST")
-class CarInfoViewModelFactory(
-    private val getCarInfoUseCase: GetCarInfoUseCase,
-    private val id: Long,
-) : ViewModelProvider.Factory {
+    @Provides
+    fun provideCarInfoConverter(): CarInfoConverter {
+        return CarInfoConverter()
+    }
 
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(CarInfoViewModel::class.java)) {
-            return CarInfoViewModel(id, getCarInfoUseCase) as T
-        }
-        throw IllegalArgumentException("It can provide only login viewModel")
+    @Provides
+    fun provideCarInfoRepository(
+        api: CarInfoApi,
+        converter: CarInfoConverter
+    ): CarInfoRepository {
+        return CarInfoRepositoryImpl(api, converter)
     }
 }

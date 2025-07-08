@@ -1,14 +1,15 @@
 package com.pogreb.leasingshift.carslist.data.repository
 
-import com.pogreb.leasingshift.carslist.data.CarsApi
+import com.pogreb.leasingshift.carslist.data.CarsListApi
 import com.pogreb.leasingshift.carslist.data.converter.CarsItemConverter
 import com.pogreb.leasingshift.carslist.domain.entity.CarsItem
-import com.pogreb.leasingshift.carslist.domain.repository.CarRepository
+import com.pogreb.leasingshift.carslist.domain.repository.CarsListRepository
+import javax.inject.Inject
 
-class CarsRepositoryImpl(
-    private val api: CarsApi,
+class CarsListRepositoryImpl @Inject constructor(
+    private val api: CarsListApi,
     private val converter: CarsItemConverter,
-) : CarRepository {
+) : CarsListRepository {
     override suspend fun getAllCars(): List<CarsItem> =
         api.getAllCars().data.map { converter.convert(it) }
 }

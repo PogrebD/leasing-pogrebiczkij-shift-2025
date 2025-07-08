@@ -1,25 +1,22 @@
 package com.pogreb.leasingshift.main.presentation
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.ShoppingCart
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
-import com.pogreb.leasingshift.R
 import com.pogreb.leasingshift.carslist.CarsListRoute
-import com.pogreb.leasingshift.main.entity.enums.NavigationOption
+import com.pogreb.leasingshift.main.domain.entity.NavigationOption
 import com.pogreb.leasingshift.main.ui.navigateToRoot
 import com.pogreb.leasingshift.orders.OrdersRoute
 import com.pogreb.leasingshift.profile.ProfileRoute
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainViewModel(
+@HiltViewModel
+class MainViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
@@ -34,6 +31,8 @@ class MainViewModel(
     )
     val selectedTab: StateFlow<NavigationOption> = _selectedTab
 
+    val tabs = TabDataProvider.getTabs()
+
     init {
         viewModelScope.launch {
             _selectedTab.collect { tab ->
@@ -42,14 +41,10 @@ class MainViewModel(
         }
     }
 
-    fun selectTab(tab: NavigationOption) {
-        _selectedTab.value = tab
-    }
-
     fun handleBottomNavClick(navOption: NavigationOption, navController: NavController) {
         if (selectedTab.value == navOption) return
 
-        selectTab(navOption)
+        _selectedTab.value = navOption
         navigateToTab(navOption, navController)
     }
 
@@ -61,18 +56,4 @@ class MainViewModel(
         }
         navController.navigateToRoot(route)
     }
-
-    fun getIcon(option: NavigationOption): ImageVector =
-        when (option) {
-            NavigationOption.CARSLIST -> Icons.Default.ShoppingCart
-            NavigationOption.ORDERS -> Icons.Default.Favorite
-            NavigationOption.PROFILE -> Icons.Default.AccountCircle
-        }
-
-    fun getLabel(option: NavigationOption): Int =
-        when (option) {
-            NavigationOption.CARSLIST -> R.string.cars_title
-            NavigationOption.ORDERS -> R.string.orders_title
-            NavigationOption.PROFILE -> R.string.profile_title
-        }
 }

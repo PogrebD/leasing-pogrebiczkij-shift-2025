@@ -5,13 +5,15 @@ import androidx.lifecycle.viewModelScope
 import com.pogreb.leasingshift.carslist.domain.entity.CarsItem
 import com.pogreb.leasingshift.carslist.domain.usecase.GetCarsListUseCase
 import com.pogreb.leasingshift.carslist.domain.usecase.GetFoundCarsUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CarsListViewModel(
+@HiltViewModel
+class CarsListViewModel @Inject constructor(
     private val getCarsListUseCase: GetCarsListUseCase,
     private val getFoundCarsUseCase: GetFoundCarsUseCase,
 ) : ViewModel() {

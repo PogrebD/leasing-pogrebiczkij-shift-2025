@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.pogreb.leasingshift.carinfo.carInfo
@@ -21,7 +21,7 @@ import com.pogreb.leasingshift.profile.profile
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
-    val mainViewModel: MainViewModel = viewModel()
+    val mainViewModel: MainViewModel = hiltViewModel()
     val selectedTab by mainViewModel.selectedTab.collectAsState()
 
     Scaffold() { paddingValues: PaddingValues ->

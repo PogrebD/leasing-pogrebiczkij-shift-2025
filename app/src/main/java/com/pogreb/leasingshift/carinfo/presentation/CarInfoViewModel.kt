@@ -1,18 +1,24 @@
 package com.pogreb.leasingshift.carinfo.presentation
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pogreb.leasingshift.carinfo.domain.usecase.GetCarInfoUseCase
 import com.pogreb.leasingshift.carinfo.presentation.state.CarInfoState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CarInfoViewModel(
-    private val id: Long,
+@HiltViewModel
+class CarInfoViewModel @Inject constructor(
     private val getCarInfoUseCase: GetCarInfoUseCase,
+    savedStateHandle: SavedStateHandle
 ) : ViewModel() {
+
+    private val id: Long = savedStateHandle.get<Long>("carId") ?: 0L
 
     private val _state = MutableStateFlow<CarInfoState>(CarInfoState.Loading)
     val state: StateFlow<CarInfoState> = _state.asStateFlow()
