@@ -1,8 +1,8 @@
 package com.pogreb.leasingshift.carslist.domain.entity
 
-import com.pogreb.leasingshift.main.entity.Media
-import com.pogreb.leasingshift.main.entity.enums.Brand
-import com.pogreb.leasingshift.main.entity.enums.Transmission
+import com.pogreb.leasingshift.main.domain.entity.Media
+import com.pogreb.leasingshift.utils.entity.Brand
+import com.pogreb.leasingshift.utils.entity.Transmission
 
 data class CarsItem(
     val id: Long,

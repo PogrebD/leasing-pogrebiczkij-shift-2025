@@ -2,7 +2,7 @@ package com.pogreb.leasingshift
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import com.pogreb.leasingshift.main.entity.enums.Brand
+import com.pogreb.leasingshift.utils.entity.Brand
 
 @Composable
 fun formatCarName(name: String, brand: Brand): String =

@@ -1,4 +1,4 @@
-package com.pogreb.leasingshift.main.entity
+package com.pogreb.leasingshift.main.domain.entity
 
 import kotlinx.serialization.Serializable
 

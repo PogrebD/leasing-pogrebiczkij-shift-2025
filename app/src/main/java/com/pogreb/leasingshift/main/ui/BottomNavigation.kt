@@ -7,7 +7,7 @@ import androidx.compose.material3.NavigationBarItemColors
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import com.pogreb.leasingshift.main.entity.enums.NavigationOption
+import com.pogreb.leasingshift.main.domain.entity.NavigationOption
 import com.pogreb.leasingshift.main.presentation.MainViewModel
 import com.pogreb.leasingshift.ui.theme.BGSecondary
 import com.pogreb.leasingshift.ui.theme.BorderMedium
@@ -24,7 +24,7 @@ fun BottomNavigation(
     NavigationBar(
         containerColor = BGSecondary
     ) {
-        for (option in NavigationOption.entries) {
+        mainViewModel.tabs.forEach { tabItem ->
             NavigationBarItem(
 
                 colors = NavigationBarItemColors(
@@ -36,10 +36,10 @@ fun BottomNavigation(
                     disabledIconColor = BorderMedium,
                     disabledTextColor = TextQuartenery,
                 ),
-                selected = selectedNavigationOption == option,
-                onClick = { onItemClicked(option) },
-                icon = { Icon(mainViewModel.getIcon(option), "") },
-                label = { Text(text =  stringResource(mainViewModel.getLabel(option))) }
+                selected = selectedNavigationOption == tabItem.option,
+                onClick = { onItemClicked(tabItem.option) },
+                icon = { Icon(tabItem.icon, "") },
+                label = { Text(text = stringResource(tabItem.labelRes)) }
             )
         }
     }

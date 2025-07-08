@@ -3,10 +3,10 @@ package com.pogreb.leasingshift.carinfo.ui
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.pogreb.leasingshift.R
-import com.pogreb.leasingshift.main.entity.enums.BodyType
-import com.pogreb.leasingshift.main.entity.enums.Color
-import com.pogreb.leasingshift.main.entity.enums.Steering
-import com.pogreb.leasingshift.main.entity.enums.Transmission
+import com.pogreb.leasingshift.utils.entity.BodyType
+import com.pogreb.leasingshift.utils.entity.Color
+import com.pogreb.leasingshift.utils.entity.Steering
+import com.pogreb.leasingshift.utils.entity.Transmission
 
 @Composable
 fun Color.getStringResource(): String = when (this) {

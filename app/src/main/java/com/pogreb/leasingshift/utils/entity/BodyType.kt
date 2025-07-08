@@ -1,4 +1,4 @@
-package com.pogreb.leasingshift.main.entity.enums
+package com.pogreb.leasingshift.utils.entity
 
 enum class BodyType {
     sedan,

@@ -33,7 +33,7 @@ import com.pogreb.leasingshift.carslist.presentation.CarsListState
 import com.pogreb.leasingshift.carslist.presentation.SearchState
 import com.pogreb.leasingshift.formatCarName
 import com.pogreb.leasingshift.formatUrlImage
-import com.pogreb.leasingshift.main.entity.enums.Transmission
+import com.pogreb.leasingshift.utils.entity.Transmission
 import com.pogreb.leasingshift.ui.theme.CustomTextStyle
 import com.pogreb.leasingshift.ui.theme.TextQuartenery
 

@@ -26,7 +26,7 @@ import com.bumptech.glide.integration.compose.GlideImage
 import com.pogreb.leasingshift.R
 import com.pogreb.leasingshift.carinfo.domain.entity.CarInfo
 import com.pogreb.leasingshift.formatCarName
-import com.pogreb.leasingshift.main.entity.Media
+import com.pogreb.leasingshift.main.domain.entity.Media
 import com.pogreb.leasingshift.main.ui.Total
 import com.pogreb.leasingshift.ui.theme.BorderExtralight
 import com.pogreb.leasingshift.ui.theme.CustomTextStyle

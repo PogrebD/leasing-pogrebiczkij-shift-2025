@@ -1,4 +1,4 @@
-package com.pogreb.leasingshift.main.entity.enums
+package com.pogreb.leasingshift.utils.entity
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
