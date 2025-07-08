@@ -1,4 +1,4 @@
-package com.pogreb.leasingshift.main.entity.enums
+package com.pogreb.leasingshift.main.domain.entity
 
 import com.pogreb.leasingshift.carslist.CarsListRoute
 import com.pogreb.leasingshift.orders.OrdersRoute

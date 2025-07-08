@@ -16,7 +16,7 @@ import com.pogreb.leasingshift.main.ui.Title
 @Composable
 fun ProfileScreen() {
     Column(modifier = Modifier.fillMaxSize()) {
-        Title(R.string.profile)
+        Title(R.string.profile_title)
 
         Box(
             modifier = Modifier

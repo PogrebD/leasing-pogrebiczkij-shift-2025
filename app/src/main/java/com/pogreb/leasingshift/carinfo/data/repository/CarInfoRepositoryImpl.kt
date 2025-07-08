@@ -4,8 +4,9 @@ import com.pogreb.leasingshift.carinfo.data.CarInfoApi
 import com.pogreb.leasingshift.carinfo.data.converter.CarInfoConverter
 import com.pogreb.leasingshift.carinfo.domain.entity.CarInfo
 import com.pogreb.leasingshift.carinfo.domain.repository.CarInfoRepository
+import javax.inject.Inject
 
-class CarInfoRepositoryImpl(
+class CarInfoRepositoryImpl @Inject constructor(
     private val api: CarInfoApi,
     private val converter: CarInfoConverter,
 ) : CarInfoRepository {

@@ -3,7 +3,6 @@ package com.pogreb.leasingshift.carinfo.ui
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -13,7 +12,6 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -22,15 +20,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.pogreb.leasingshift.R
 import com.pogreb.leasingshift.carinfo.domain.entity.CarInfo
 import com.pogreb.leasingshift.formatCarName
-import com.pogreb.leasingshift.main.entity.Media
-import com.pogreb.leasingshift.main.entity.enums.getStringResourceId
+import com.pogreb.leasingshift.main.domain.entity.Media
 import com.pogreb.leasingshift.main.ui.Total
 import com.pogreb.leasingshift.ui.theme.BorderExtralight
 import com.pogreb.leasingshift.ui.theme.CustomTextStyle
@@ -49,13 +45,15 @@ fun CarInfoContent(
                 .fillMaxWidth()
         )
         {
-            item { ImageScroll(car.media)
+            item {
+                ImageScroll(car.media)
 
                 Characteristics(car)
 
                 Spacer(modifier = Modifier.height(24.dp))
 
-                TotalPrice(car.price) }
+                TotalPrice(car.price)
+            }
 
         }
 
@@ -64,8 +62,7 @@ fun CarInfoContent(
 }
 
 @Composable
-fun Buttons(onBackClick: () -> Unit, onReserveClick: () -> Unit)
-{
+fun Buttons(onBackClick: () -> Unit, onReserveClick: () -> Unit) {
     Spacer(modifier = Modifier.height(16.dp))
 
     BackButton(onBackClick)
@@ -86,7 +83,7 @@ fun BackButton(onBackClick: () -> Unit) {
             .fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
     ) {
-        Text(stringResource(R.string.back))
+        Text(stringResource(R.string.back_button))
     }
 }
 
@@ -99,8 +96,8 @@ fun ReservationButton(onReserveClick: () -> Unit) {
             .fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
 
-    ) {
-        Text(stringResource(R.string.reserve))
+        ) {
+        Text(stringResource(R.string.reserve_button))
     }
 }
 
@@ -108,7 +105,7 @@ fun ReservationButton(onReserveClick: () -> Unit) {
 @Composable
 fun ImageScroll(media: List<Media>) {
     LazyRow(modifier = Modifier.fillMaxWidth()) {
-        items(media) { item, ->
+        items(media) { item ->
             GlideImage(
                 model = "https://shift-intensive.ru/api" + item.url,
                 contentDescription = "Car image",
@@ -140,7 +137,7 @@ fun Characteristics(car: CarInfo) {
     Spacer(modifier = Modifier.height(16.dp))
 
     Text(
-        text = stringResource(R.string.characteristics),
+        text = stringResource(R.string.characteristics_title),
         style = CustomTextStyle.primary,
         modifier = Modifier
             .height(24.dp)
@@ -148,8 +145,8 @@ fun Characteristics(car: CarInfo) {
     )
 
     TextPair(
-        stringResource(R.string.transmission),
-        stringResource(car.transmission.getStringResourceId())
+        stringResource(R.string.transmission_heading),
+        car.transmission.getStringResource()
     )
 
     HorizontalDivider(
@@ -158,8 +155,8 @@ fun Characteristics(car: CarInfo) {
     )
 
     TextPair(
-        stringResource(R.string.steering),
-        stringResource(car.steering.getStringResourceId())
+        stringResource(R.string.steering_heading),
+        car.steering.getStringResource()
     )
 
     HorizontalDivider(
@@ -168,8 +165,8 @@ fun Characteristics(car: CarInfo) {
     )
 
     TextPair(
-        stringResource(R.string.body_type),
-        stringResource(car.bodyType.getStringResourceId())
+        stringResource(R.string.body_type_heading),
+        car.bodyType.getStringResource()
     )
 
     HorizontalDivider(
@@ -178,8 +175,8 @@ fun Characteristics(car: CarInfo) {
     )
 
     TextPair(
-        stringResource(R.string.color),
-        stringResource(car.color.getStringResourceId())
+        stringResource(R.string.color_heading),
+        car.color.getStringResource()
     )
 }
 

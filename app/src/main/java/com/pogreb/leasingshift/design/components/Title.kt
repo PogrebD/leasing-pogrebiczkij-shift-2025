@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.dp
 import com.pogreb.leasingshift.ui.theme.CustomTextStyle
 
 @Composable
-public fun Title(titleId: Int) {
+fun Title(titleId: Int) {
     Text(
         text = stringResource(titleId),
         style = CustomTextStyle.appTitle,
