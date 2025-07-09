@@ -1,4 +1,4 @@
-package com.pogreb.leasingshift.utils.entity
+package com.pogreb.leasingshift.carslist.domain.enums
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

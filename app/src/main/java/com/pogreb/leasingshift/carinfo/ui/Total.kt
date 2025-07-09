@@ -1,4 +1,4 @@
-package com.pogreb.leasingshift.main.ui
+package com.pogreb.leasingshift.carinfo.ui
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth

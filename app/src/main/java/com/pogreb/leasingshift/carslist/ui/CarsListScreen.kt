@@ -58,6 +58,7 @@ fun CarsListScreen(
                         onItemClick = onItemClick,
                         onSearchValueChange = { carsListViewModel.searchCars(it) },
                         onFilterClick = carsListViewModel::openFilter,
+                        baseUrl = carsListViewModel.baseUrl
                     )
 
                     is SearchState.NotFound -> CarsListContent(
@@ -65,6 +66,7 @@ fun CarsListScreen(
                         onItemClick = onItemClick,
                         onSearchValueChange = { carsListViewModel.searchCars(it) },
                         onFilterClick = carsListViewModel::openFilter,
+                        baseUrl = carsListViewModel.baseUrl
                     )
                 }
 

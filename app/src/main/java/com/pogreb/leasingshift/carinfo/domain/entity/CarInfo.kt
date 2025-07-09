@@ -2,11 +2,11 @@ package com.pogreb.leasingshift.carinfo.domain.entity
 
 import com.pogreb.leasingshift.carinfo.data.entity.Rents
 import com.pogreb.leasingshift.main.domain.entity.Media
-import com.pogreb.leasingshift.utils.entity.BodyType
-import com.pogreb.leasingshift.utils.entity.Brand
-import com.pogreb.leasingshift.utils.entity.Color
-import com.pogreb.leasingshift.utils.entity.Steering
-import com.pogreb.leasingshift.utils.entity.Transmission
+import com.pogreb.leasingshift.carslist.domain.enums.BodyType
+import com.pogreb.leasingshift.carslist.domain.enums.Brand
+import com.pogreb.leasingshift.carslist.domain.enums.Color
+import com.pogreb.leasingshift.carslist.domain.enums.Steering
+import com.pogreb.leasingshift.carslist.domain.enums.Transmission
 
 data class CarInfo(
     val id: Long,

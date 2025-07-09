@@ -29,7 +29,7 @@ import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.pogreb.leasingshift.R
-import com.pogreb.leasingshift.carinfo.ui.getStringResource
+import com.pogreb.leasingshift.carinfo.ui.toText
 import com.pogreb.leasingshift.carslist.domain.entity.FilterParams
 import com.pogreb.leasingshift.carslist.presentation.SearchState
 import com.pogreb.leasingshift.ui.theme.BGPrimary
@@ -37,11 +37,11 @@ import com.pogreb.leasingshift.ui.theme.BorderLight
 import com.pogreb.leasingshift.ui.theme.CustomTextStyle
 import com.pogreb.leasingshift.ui.theme.TextPrimary
 import com.pogreb.leasingshift.ui.theme.TextTertiary
-import com.pogreb.leasingshift.utils.entity.BodyType
-import com.pogreb.leasingshift.utils.entity.Brand
-import com.pogreb.leasingshift.utils.entity.Color
-import com.pogreb.leasingshift.utils.entity.Steering
-import com.pogreb.leasingshift.utils.entity.Transmission
+import com.pogreb.leasingshift.carslist.domain.enums.BodyType
+import com.pogreb.leasingshift.carslist.domain.enums.Brand
+import com.pogreb.leasingshift.carslist.domain.enums.Color
+import com.pogreb.leasingshift.carslist.domain.enums.Steering
+import com.pogreb.leasingshift.carslist.domain.enums.Transmission
 
 @Composable
 fun FilterScreen(
@@ -214,7 +214,7 @@ fun DropSelectionMenu(
 @Composable
 fun getBodyTypeStrings(): List<String> = buildList {
     BodyType.entries.forEach { it ->
-        add(it.getStringResource())
+        add(it.toText())
     }
 }
 
@@ -230,7 +230,7 @@ fun getBrandStrings(): List<String> = buildList {
 @Composable
 fun getSteeringStrings(): List<String> = buildList {
     Steering.entries.forEach { it ->
-        add(it.getStringResource())
+        add(it.toText())
     }
 }
 
@@ -238,7 +238,7 @@ fun getSteeringStrings(): List<String> = buildList {
 @Composable
 fun getTransmissionStrings(): List<String> = buildList {
     Transmission.entries.forEach { it ->
-        add(it.getStringResource())
+        add(it.toText())
     }
 }
 
@@ -246,7 +246,7 @@ fun getTransmissionStrings(): List<String> = buildList {
 @Composable
 fun getColorStrings(): List<String> = buildList {
     Color.entries.forEach { it ->
-        add(it.getStringResource())
+        add(it.toText())
     }
 }
 

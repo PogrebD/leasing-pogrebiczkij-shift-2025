@@ -1,4 +1,4 @@
-package com.pogreb.leasingshift.carinfo.presentation.state
+package com.pogreb.leasingshift.carinfo.presentation
 
 import com.pogreb.leasingshift.carinfo.domain.entity.CarInfo
 

@@ -4,13 +4,11 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -34,7 +32,9 @@ import androidx.compose.ui.unit.dp
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.pogreb.leasingshift.R
+import com.pogreb.leasingshift.carslist.di.BaseUrl
 import com.pogreb.leasingshift.carslist.domain.entity.CarsItem
+import com.pogreb.leasingshift.carslist.domain.enums.Transmission
 import com.pogreb.leasingshift.carslist.presentation.CarsListState
 import com.pogreb.leasingshift.carslist.presentation.SearchState
 import com.pogreb.leasingshift.ui.theme.BGPrimary
@@ -42,7 +42,6 @@ import com.pogreb.leasingshift.ui.theme.CustomTextStyle
 import com.pogreb.leasingshift.ui.theme.IndicatorWhite
 import com.pogreb.leasingshift.ui.theme.TextQuartenery
 import com.pogreb.leasingshift.ui.theme.TextSecondary
-import com.pogreb.leasingshift.utils.entity.Transmission
 
 const val days = 14
 
@@ -52,6 +51,7 @@ fun CarsListContent(
     onItemClick: (loanId: Long) -> Unit,
     onSearchValueChange: (String) -> Unit,
     onFilterClick: () -> Unit,
+    @BaseUrl baseUrl: String,
 ) {
     Search(
         text = state.searchState.query,
@@ -63,7 +63,8 @@ fun CarsListContent(
     when (val searchState = state.searchState) {
         is SearchState.Found -> CarsList(
             carsListItems = searchState.cars,
-            onItemClick = onItemClick
+            onItemClick = onItemClick,
+            baseUrl = baseUrl,
         )
 
         is SearchState.NotFound -> NotFoundText()
@@ -75,6 +76,7 @@ fun CarsListContent(
 private fun CarsList(
     carsListItems: List<CarsItem> = emptyList(),
     onItemClick: (loanId: Long) -> Unit,
+    @BaseUrl baseUrl: String,
 ) {
     LazyColumn(
         modifier = Modifier
@@ -96,6 +98,7 @@ private fun CarsList(
                 CarsListItem(
                     item = item,
                     onClick = onItemClick,
+                    baseUrl = baseUrl,
                 )
             }
         }
@@ -107,10 +110,11 @@ private fun CarsList(
 private fun CarsListItem(
     item: CarsItem,
     onClick: (loanId: Long) -> Unit,
+    @BaseUrl baseUrl: String,
 ) {
     val coverImageUrl = item.media
         .firstOrNull { it.isCover }?.url?.let {
-            stringResource(id = R.string.base_url_for_image, it)
+            baseUrl + it
         }
 
 
@@ -126,6 +130,7 @@ private fun CarsListItem(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(116.dp)
+                    .padding(end = 12.dp)
                     .weight(1f)
                     .clip(RoundedCornerShape(8.dp)),
                 contentScale = ContentScale.Fit,
@@ -134,33 +139,21 @@ private fun CarsListItem(
                     .placeholder(R.drawable.placeholder)
                     .error(R.drawable.error_image)
             }
-            Spacer(modifier = Modifier.height(12.dp))
         }
-
-        Spacer(
-            Modifier.width(
-                24.dp
-            )
-        )
 
         Column(
             modifier = Modifier
                 .weight(1f)
+                .padding(start = 12.dp)
         ) {
             Text(
                 text = item.name,
                 style = CustomTextStyle.primary,
                 modifier = Modifier
-                    .height(24.dp)
+                    .padding(bottom = 12.dp)
                     .fillMaxWidth(),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-            )
-
-            Spacer(
-                Modifier.height(
-                    8.dp
-                )
             )
 
             Text(
@@ -170,13 +163,7 @@ private fun CarsListItem(
                 },
                 style = CustomTextStyle.secondary,
                 modifier = Modifier
-                    .height(16.dp),
-            )
-
-            Spacer(
-                Modifier.height(
-                    26.dp
-                )
+                    .padding(bottom = 26.dp),
             )
 
             Text(
@@ -186,13 +173,8 @@ private fun CarsListItem(
                 ),
                 style = CustomTextStyle.primary,
                 modifier = Modifier
-                    .height(24.dp),
-            )
+                    .padding(bottom = 2.dp),
 
-            Spacer(
-                Modifier.height(
-                    2.dp
-                )
             )
 
             Text(

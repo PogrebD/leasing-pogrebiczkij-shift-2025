@@ -2,15 +2,15 @@ package com.pogreb.leasingshift.carinfo.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.OutlinedButton
@@ -25,8 +25,8 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.pogreb.leasingshift.R
 import com.pogreb.leasingshift.carinfo.domain.entity.CarInfo
+import com.pogreb.leasingshift.carslist.di.BaseUrl
 import com.pogreb.leasingshift.main.domain.entity.Media
-import com.pogreb.leasingshift.main.ui.Total
 import com.pogreb.leasingshift.ui.theme.BorderExtralight
 import com.pogreb.leasingshift.ui.theme.CustomTextStyle
 
@@ -35,42 +35,31 @@ fun CarInfoContent(
     car: CarInfo,
     onReserveClick: () -> Unit,
     onBackClick: () -> Unit,
+    @BaseUrl baseUrl: String,
 ) {
-    Column()
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp)
+    )
     {
-        LazyColumn(
+        Column(
             modifier = Modifier
-                .weight(1f)
-                .fillMaxWidth()
+                .weight(1F)
+                .verticalScroll(rememberScrollState())
         )
         {
-            item {
-                ImageScroll(car.media)
+            ImageScroll(car.media, baseUrl)
 
-                Characteristics(car)
+            Characteristics(car)
 
-                Spacer(modifier = Modifier.height(24.dp))
-
-                TotalPrice(car.price)
-            }
-
+            TotalPrice(car.price)
         }
 
-        Buttons(onBackClick, onReserveClick)
+        BackButton(onBackClick)
+
+        ReservationButton(onReserveClick)
     }
-}
-
-@Composable
-fun Buttons(onBackClick: () -> Unit, onReserveClick: () -> Unit) {
-    Spacer(modifier = Modifier.height(16.dp))
-
-    BackButton(onBackClick)
-
-    Spacer(modifier = Modifier.height(8.dp))
-
-    ReservationButton(onReserveClick)
-
-    Spacer(modifier = Modifier.height(16.dp))
 }
 
 @Composable
@@ -78,6 +67,7 @@ fun BackButton(onBackClick: () -> Unit) {
     OutlinedButton(
         onClick = { onBackClick() },
         modifier = Modifier
+            .padding(top = 16.dp)
             .height(56.dp)
             .fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
@@ -91,27 +81,31 @@ fun ReservationButton(onReserveClick: () -> Unit) {
     Button(
         onClick = { onReserveClick() },
         modifier = Modifier
+            .padding(top = 8.dp, bottom = 16.dp)
             .height(56.dp)
             .fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
-
-        ) {
+    ) {
         Text(stringResource(R.string.reserve_button))
     }
 }
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun ImageScroll(media: List<Media>) {
+fun ImageScroll(
+    media: List<Media>,
+    @BaseUrl baseUrl: String
+) {
     LazyRow(modifier = Modifier.fillMaxWidth()) {
         items(media) { item ->
             GlideImage(
-                model = "https://shift-intensive.ru/api" + item.url,
+                model = baseUrl + item.url,
                 contentDescription = "Car image",
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(220.dp)
                     .width(328.dp)
+                    .padding(horizontal = 4.dp)
                     .clip(RoundedCornerShape(8.dp)),
                 contentScale = ContentScale.FillBounds
             ) {
@@ -129,11 +123,9 @@ fun Characteristics(car: CarInfo) {
         text = car.name,
         style = CustomTextStyle.appTitle,
         modifier = Modifier
-            .height(32.dp)
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .padding(bottom = 16.dp, top = 24.dp),
     )
-
-    Spacer(modifier = Modifier.height(16.dp))
 
     Text(
         text = stringResource(R.string.characteristics_title),
@@ -145,7 +137,7 @@ fun Characteristics(car: CarInfo) {
 
     TextPair(
         stringResource(R.string.transmission_heading),
-        car.transmission.getStringResource()
+        car.transmission.toText()
     )
 
     HorizontalDivider(
@@ -155,7 +147,7 @@ fun Characteristics(car: CarInfo) {
 
     TextPair(
         stringResource(R.string.steering_heading),
-        car.steering.getStringResource()
+        car.steering.toText()
     )
 
     HorizontalDivider(
@@ -165,7 +157,7 @@ fun Characteristics(car: CarInfo) {
 
     TextPair(
         stringResource(R.string.body_type_heading),
-        car.bodyType.getStringResource()
+        car.bodyType.toText()
     )
 
     HorizontalDivider(
@@ -175,7 +167,7 @@ fun Characteristics(car: CarInfo) {
 
     TextPair(
         stringResource(R.string.color_heading),
-        car.color.getStringResource()
+        car.color.toText()
     )
 }
 
@@ -209,7 +201,7 @@ fun TotalPrice(totalPrice: Double) {
         text = stringResource(R.string.price),
         style = CustomTextStyle.primary,
         modifier = Modifier
-            .height(24.dp)
+            .padding(top = 24.dp)
             .fillMaxWidth(),
     )
 

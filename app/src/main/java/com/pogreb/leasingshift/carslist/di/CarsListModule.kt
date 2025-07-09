@@ -4,6 +4,7 @@ import com.pogreb.leasingshift.carslist.data.CarsListApi
 import com.pogreb.leasingshift.carslist.data.converter.CarsItemConverter
 import com.pogreb.leasingshift.carslist.data.repository.CarsListRepositoryImpl
 import com.pogreb.leasingshift.carslist.domain.repository.CarsListRepository
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,23 +13,18 @@ import retrofit2.Retrofit
 
 @Module
 @InstallIn(SingletonComponent::class)
-object CarsListModule {
+interface CarsListModule {
+    companion object {
+        @Provides
+        fun provideCarsApi(retrofit: Retrofit): CarsListApi {
+            return retrofit.create(CarsListApi::class.java)
+        }
 
-    @Provides
-    fun provideCarsApi(retrofit: Retrofit): CarsListApi {
-        return retrofit.create(CarsListApi::class.java)
+        @Provides
+        fun provideCarsItemConverter(): CarsItemConverter {
+            return CarsItemConverter()
+        }
     }
-
-    @Provides
-    fun provideCarsItemConverter(): CarsItemConverter {
-        return CarsItemConverter()
-    }
-
-    @Provides
-    fun provideCarsRepository(
-        api: CarsListApi,
-        converter: CarsItemConverter
-    ): CarsListRepository {
-        return CarsListRepositoryImpl(api, converter)
-    }
+    @Binds
+    fun bindCarsRepository(impl: CarsListRepositoryImpl): CarsListRepository
 }

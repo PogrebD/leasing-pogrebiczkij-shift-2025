@@ -2,6 +2,7 @@ package com.pogreb.leasingshift.carslist.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.pogreb.leasingshift.carslist.di.BaseUrl
 import com.pogreb.leasingshift.carslist.domain.Mapper
 import com.pogreb.leasingshift.carslist.domain.entity.CarsItem
 import com.pogreb.leasingshift.carslist.domain.entity.FilterParams
@@ -21,6 +22,7 @@ class CarsListViewModel @Inject constructor(
     private val getFoundCarsUseCase: GetFoundCarsUseCase,
     private val getFilteredCarsUseCase: GetFilteredCarsUseCase,
     private val mapper: Mapper,
+    @BaseUrl val baseUrl: String,
 ) : ViewModel() {
     private var currentFilterParams: FilterParams? = null
     private val _state = MutableStateFlow<CarsListState>(CarsListState.Loading)
@@ -28,7 +30,6 @@ class CarsListViewModel @Inject constructor(
 
 
     fun loadData() {
-
         _state.value = CarsListState.Loading
 
         viewModelScope.launch {
