@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import com.pogreb.leasingshift.R
 import com.pogreb.leasingshift.carslist.presentation.CarsListState
 import com.pogreb.leasingshift.carslist.presentation.CarsListViewModel
+import com.pogreb.leasingshift.carslist.presentation.SearchState
 import com.pogreb.leasingshift.main.ui.FullScreenProgressIndicator
 import com.pogreb.leasingshift.main.ui.Title
 
@@ -36,20 +37,42 @@ fun CarsListScreen(
 
             CarsListState.Loading -> FullScreenProgressIndicator()
 
-            is CarsListState.Idle -> CarsListContent(
-                state = currentState,
-                onItemClick = onItemClick,
-                onSearchValueChange = { carsListViewModel.searchCars(it) },
-            )
+            is CarsListState.Idle ->
+                when (val currentSearchState = currentState.searchState) {
+                    is SearchState.SelectFilter -> FilterScreen(
+                        currentSearchState,
+                        onBackClick = { carsListViewModel.searchCars(currentSearchState.query) },
+                        onFilterSearchClick = {
+                            carsListViewModel.filter(
+                                it.brandName,
+                                it.bodyTypeName,
+                                it.steeringName,
+                                it.transmissionName,
+                                it.colorName
+                            )
+                        },
+                    )
+
+                    is SearchState.Found -> CarsListContent(
+                        state = currentState,
+                        onItemClick = onItemClick,
+                        onSearchValueChange = { carsListViewModel.searchCars(it) },
+                        onFilterClick = carsListViewModel::openFilter,
+                    )
+
+                    is SearchState.NotFound -> CarsListContent(
+                        state = currentState,
+                        onItemClick = onItemClick,
+                        onSearchValueChange = { carsListViewModel.searchCars(it) },
+                        onFilterClick = carsListViewModel::openFilter,
+                    )
+                }
+
 
             is CarsListState.Error -> CarsListError(
                 message = currentState.reason,
-                onRetry = {
-                    carsListViewModel.loadData()
-                }
+                onRetry = carsListViewModel::loadData
             )
         }
     }
 }
-
-

@@ -25,7 +25,6 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.pogreb.leasingshift.R
 import com.pogreb.leasingshift.carinfo.domain.entity.CarInfo
-import com.pogreb.leasingshift.formatCarName
 import com.pogreb.leasingshift.main.domain.entity.Media
 import com.pogreb.leasingshift.main.ui.Total
 import com.pogreb.leasingshift.ui.theme.BorderExtralight
@@ -127,7 +126,7 @@ fun ImageScroll(media: List<Media>) {
 @Composable
 fun Characteristics(car: CarInfo) {
     Text(
-        text = formatCarName(name = car.name, brand = car.brand),
+        text = car.name,
         style = CustomTextStyle.appTitle,
         modifier = Modifier
             .height(32.dp)

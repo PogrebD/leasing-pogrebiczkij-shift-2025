@@ -14,6 +14,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -22,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -31,11 +37,12 @@ import com.pogreb.leasingshift.R
 import com.pogreb.leasingshift.carslist.domain.entity.CarsItem
 import com.pogreb.leasingshift.carslist.presentation.CarsListState
 import com.pogreb.leasingshift.carslist.presentation.SearchState
-import com.pogreb.leasingshift.formatCarName
-import com.pogreb.leasingshift.formatUrlImage
-import com.pogreb.leasingshift.utils.entity.Transmission
+import com.pogreb.leasingshift.ui.theme.BGPrimary
 import com.pogreb.leasingshift.ui.theme.CustomTextStyle
+import com.pogreb.leasingshift.ui.theme.IndicatorWhite
 import com.pogreb.leasingshift.ui.theme.TextQuartenery
+import com.pogreb.leasingshift.ui.theme.TextSecondary
+import com.pogreb.leasingshift.utils.entity.Transmission
 
 const val days = 14
 
@@ -44,11 +51,14 @@ fun CarsListContent(
     state: CarsListState.Idle,
     onItemClick: (loanId: Long) -> Unit,
     onSearchValueChange: (String) -> Unit,
+    onFilterClick: () -> Unit,
 ) {
     Search(
         text = state.searchState.query,
         onValueChange = onSearchValueChange,
     )
+
+    FilterButton(onFilterClick)
 
     when (val searchState = state.searchState) {
         is SearchState.Found -> CarsList(
@@ -57,6 +67,7 @@ fun CarsListContent(
         )
 
         is SearchState.NotFound -> NotFoundText()
+        is SearchState.SelectFilter -> {}
     }
 }
 
@@ -67,13 +78,26 @@ private fun CarsList(
 ) {
     LazyColumn(
         modifier = Modifier
-            .fillMaxHeight(),
+            .fillMaxHeight()
+            .padding(horizontal = 16.dp),
+
     ) {
         itemsIndexed(carsListItems) { index, item ->
-            CarsListItem(
-                item = item,
-                onClick = onItemClick,
-            )
+            ElevatedCard(
+                elevation = CardDefaults.cardElevation(
+                    defaultElevation = 6.dp
+                ),
+                colors = CardDefaults.cardColors(
+                    containerColor = BGPrimary,
+                ),
+                modifier = Modifier.padding(vertical = 2.dp)
+
+            ){
+                CarsListItem(
+                    item = item,
+                    onClick = onItemClick,
+                )
+            }
         }
     }
 }
@@ -86,7 +110,7 @@ private fun CarsListItem(
 ) {
     val coverImageUrl = item.media
         .firstOrNull { it.isCover }?.url?.let {
-            formatUrlImage(it)
+            stringResource(id = R.string.base_url_for_image, it)
         }
 
 
@@ -104,7 +128,7 @@ private fun CarsListItem(
                     .height(116.dp)
                     .weight(1f)
                     .clip(RoundedCornerShape(8.dp)),
-                contentScale = ContentScale.Crop,
+                contentScale = ContentScale.Fit,
             ) {
                 it
                     .placeholder(R.drawable.placeholder)
@@ -124,7 +148,7 @@ private fun CarsListItem(
                 .weight(1f)
         ) {
             Text(
-                text = formatCarName(name = item.name, brand = item.brand),
+                text = item.name,
                 style = CustomTextStyle.primary,
                 modifier = Modifier
                     .height(24.dp)
@@ -203,6 +227,8 @@ private fun Search(
         )
         OutlinedTextField(
             value = text,
+            modifier = Modifier
+                .fillMaxWidth(),
             onValueChange = onValueChange,
             shape = RoundedCornerShape(8.dp),
             label = {
@@ -211,13 +237,12 @@ private fun Search(
                     color = TextQuartenery
                 )
             },
-
-            )
+        )
     }
 }
 
 @Composable
-private fun NotFoundText() {
+fun NotFoundText() {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -228,5 +253,31 @@ private fun NotFoundText() {
             text = stringResource(R.string.search_not_found),
             style = MaterialTheme.typography.bodyLarge,
         )
+    }
+}
+
+@Composable
+private fun FilterButton(onFilterClick: () -> Unit) {
+    Button(
+        onClick = { onFilterClick() },
+        modifier = Modifier
+            .height(56.dp)
+            .padding(horizontal = 16.dp)
+            .fillMaxWidth(),
+        shape = RoundedCornerShape(16.dp),
+        colors = ButtonColors(
+            containerColor = TextSecondary,
+            contentColor = IndicatorWhite,
+            disabledContainerColor = TextQuartenery,
+            disabledContentColor = IndicatorWhite,
+        ),
+    ) {
+        Row {
+            Icon(
+                painter = painterResource(R.drawable.outline_filter_list_24),
+                contentDescription = "filters button"
+            )
+        }
+        Text(stringResource(R.string.filters_button))
     }
 }
