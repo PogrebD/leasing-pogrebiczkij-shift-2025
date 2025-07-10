@@ -19,18 +19,24 @@
     <string name="orders_annotation">Здесь должены быть заказы, но делать я их конечно же не буду</string>
     <string name="in_development">В разработке</string>
     <string name="characteristics_title">Характеристики</string>
+
     <string name="transmission_heading">Коробка передач</string>
     <string name="transmission_automatic">Автоматическая</string>
     <string name="transmission_manual">Механическая</string>
+    <string name="transmission_hint">Выберите коробку передач</string>
+
     <string name="steering_heading">Сторона руля</string>
     <string name="steering_right">Справа</string>
     <string name="steering_left">Слева</string>
+    <string name="steering_hint">Выберите расположение руля</string>
+
     <string name="body_type_heading">Тип кузова</string>
     <string name="body_type_sedan">Седан</string>
     <string name="body_type_suv">Внедорожник</string>
     <string name="body_type_hatchback">Хетчбэк</string>
     <string name="body_type_cabriolet">Кабриолет</string>
     <string name="body_type_coupe">Купе</string>
+
     <string name="color_heading">Цвет</string>
     <string name="color_black">Черный</string>
     <string name="color_white">Белый</string>
@@ -39,8 +45,29 @@
     <string name="color_blue">Синий</string>
     <string name="color_grey">Серый</string>
     <string name="color_orange">Оранжевый</string>
+    <string name="color_hint">Выберите цвет</string>
+
     <string name="price">Стоимость</string>
     <string name="total_rent">Аренда: 10-24 апреля 2025 (14 дней)</string>
     <string name="back_button">Назад</string>
     <string name="reserve_button">Забронировать</string>
+    <string name="filters_button">Фильтры</string>
+    <string name="body_type_hint">Выберите тип кузова</string>
+
+    <string name="brand_haval">Haval</string>
+    <string name="brand_hyundai">Hyundai</string>
+    <string name="brand_volkswagen">Volkswagen</string>
+    <string name="brand_kia">Kia</string>
+    <string name="brand_geely">Geely</string>
+    <string name="brand_mercedes">Mercedes</string>
+    <string name="brand_garden_car">Garden Car</string>
+    <string name="brand_grocery_cart">Grocery Cart</string>
+    <string name="brand_haier">Haier</string>
+    <string name="brand_invalid">Invalid</string>
+    <string name="brand_label">Марка</string>
+    <string name="brand_hint">Выберите марку</string>
+
+    <string name="filter_search_button">Найти</string>
+
+
 </resources>

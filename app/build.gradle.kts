@@ -3,8 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.jetbrains.kotlin.serialization)
-    id("com.google.dagger.hilt.android")
-    id("com.google.devtools.ksp")
+    alias(libs.plugins.dagger.hilt.android)
+    alias(libs.plugins.devtools.ksp)
 }
 
 android {
@@ -22,12 +22,16 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField( "String", "BASE_URL", "\"https://shift-intensive.ru/api\"")
+        }
         release {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "BASE_URL", "\"https://shift-intensive.ru/api\"")
         }
     }
     compileOptions {
@@ -39,6 +43,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -54,7 +59,7 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
 
     implementation(libs.glide)
-    implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
+    implementation(libs.glide.compose)
 
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 

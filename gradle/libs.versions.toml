@@ -46,10 +46,13 @@ glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose"}
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version = "1.2.0" }
-
+glide-compose = { module = "com.github.bumptech.glide:compose", version = "1.0.0-beta01" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 jetbrains-kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+
