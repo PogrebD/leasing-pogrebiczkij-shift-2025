@@ -13,7 +13,6 @@ fun NavGraphBuilder.carInfo(navController: NavHostController) {
 
         CarInfoScreen(
             carInfoViewModel = carInfoViewModel,
-            onReserveClick = {},
             onBackClick = navController::popBackStack,
         )
     }

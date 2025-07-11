@@ -43,7 +43,8 @@ val IndicatorPositive = Color(0xDE40BF7F)
 val Brand = Color(0xFFDB0019)
 val PressedPrimary = Color(0xFFC10016)
 val HoverPrimary = Color(0xFFAD0014)
-val BrandExtralight = Color(0xFFFF9696)
+//val BrandExtralight = Color(0xFFFF9696)
+val BrandExtralight = Color(0xFFFFB3B3)
 
 // Text
 val TextBrandDisabled = Color(0xFFFF9BA6)

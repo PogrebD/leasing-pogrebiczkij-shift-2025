@@ -20,6 +20,12 @@ object CustomTextStyle {
         fontWeight = FontWeight.Normal,
     )
 
+    val secondaryLight: TextStyle = TextStyle(
+        color = TextTertiary,
+        fontSize = 12.sp,
+        fontWeight = FontWeight.Normal,
+    )
+
     val appTitle: TextStyle = TextStyle(
         color = TextPrimary,
         fontSize = 28.sp,
@@ -43,4 +49,6 @@ object CustomTextStyle {
         fontSize = 16.sp,
         fontWeight = FontWeight.Normal,
     )
+
+
 }

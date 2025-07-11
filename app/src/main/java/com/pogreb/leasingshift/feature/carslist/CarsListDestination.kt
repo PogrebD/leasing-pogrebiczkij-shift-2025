@@ -14,9 +14,11 @@ fun NavGraphBuilder.carsList(navController: NavHostController) {
 
         CarsListScreen(
             carsListViewModel = carsListViewModel,
-            onItemClick = { carId ->
-                navController.navigate(CarInfoRoute(carId))
-            }
+            onItemClick = { carId, date ->
+                navController.navigate(
+                    CarInfoRoute(carId, date)
+                )
+            },
         )
     }
 }
