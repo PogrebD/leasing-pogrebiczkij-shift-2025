@@ -14,7 +14,7 @@ data class CarInfo(
     val brand: Brand,
     val media:  List<Media>,
     val transmission: Transmission,
-    val price: Double,
+    val price: Long,
     val location: String,
     val color: Color,
     val bodyType: BodyType,

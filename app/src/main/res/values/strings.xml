@@ -2,10 +2,13 @@
     <string name="app_name">LeasingShift</string>
 
     <string name="car_name_and_brand">%s %s</string>
+    <string name="fio">%s %s %s</string>
     <string name="price_ru">%d ₽</string>
     <string name="price_for_amount_days">%d ₽ за %d дней</string>
     <string name="total_price">Итого: %d ₽</string>
     <string name="base_url_for_image">https://shift-intensive.ru/api%s</string>
+    <string name="date_format">%1$s - %2$s (%3$d дней)</string>
+    <string name="date_format_result">%1$s - %2$s</string>
 
     <string name="cars_title">Автомобили</string>
     <string name="search">Поиск</string>
@@ -68,6 +71,35 @@
     <string name="brand_hint">Выберите марку</string>
 
     <string name="filter_search_button">Найти</string>
+    <string name="place_receiving_label">Место получения</string>
+    <string name="place_return_label">Место возврата</string>
+    <string name="next_button">Продолжить</string>
+    <string name="second_name_label">Фамилия</string>
+    <string name="first_name_label">Имя</string>
+    <string name="middle_name_label">Отчество</string>
+    <string name="email_label">Электронная почта</string>
+    <string name="complete_button">Оформить</string>
+    <string name="successful_result_additional_information">Вся информация была продублирована в SMS</string>
+    <string name="to_main_page_button">На главную</string>
+    <string name="view_status">Посмотреть статус</string>
+    <string name="dob_label">Дата рождения</string>
+    <string name="user_agreement_check_box">Принимаю условия соглашения</string>
+    <string name="comment_label">Комментарий</string>
+    <string name="comment_hint">Ведите дополнительную информацию</string>
+    <string name="booking_data_label">Данные брони</string>
+    <string name="boking_dates_lable">Даты брони</string>
+    <string name="car_label">Автомобиль</string>
+    <string name="information_missing">Информация отсутствует</string>
+    <string name="client_data_label">Данные заказчика</string>
+    <string name="fio_label">ФИО</string>
+    <string name="phone_label">Номер телефона</string>
+    <string name="booking_title">Бронирование авто</string>
+    <string name="user_data_title">Ваши данные</string>
+    <string name="data_verification_title">Проверка данных</string>
+    <string name="cancel_button">Отмена</string>
+    <string name="select_button">Выбрать</string>
+    <string name="select_dates_hint">Выберите даты</string>
+
 
 
 </resources>

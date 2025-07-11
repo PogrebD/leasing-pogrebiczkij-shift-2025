@@ -16,6 +16,10 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -25,7 +29,10 @@ import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.bumptech.glide.integration.compose.GlideImage
 import com.pogreb.leasingshift.R
 import com.pogreb.leasingshift.feature.carinfo.domain.entity.CarInfo
+import com.pogreb.leasingshift.feature.carinfo.presentation.CarInfoViewModel
+import com.pogreb.leasingshift.feature.carinfo.ui.components.Total
 import com.pogreb.leasingshift.shared.di.BaseUrl
+import com.pogreb.leasingshift.shared.domain.entity.DateBooking
 import com.pogreb.leasingshift.shared.domain.entity.Media
 import com.pogreb.leasingshift.shared.ui.toText
 import com.pogreb.leasingshift.ui.theme.BorderExtralight
@@ -33,11 +40,16 @@ import com.pogreb.leasingshift.ui.theme.CustomTextStyle
 
 @Composable
 fun CarInfoContent(
+    viewModel: CarInfoViewModel,
     car: CarInfo,
     onReserveClick: () -> Unit,
     onBackClick: () -> Unit,
     @BaseUrl baseUrl: String,
 ) {
+    var bookingData by remember {
+        mutableStateOf(viewModel.bookingData.value)
+    }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -54,7 +66,7 @@ fun CarInfoContent(
 
             Characteristics(car)
 
-            TotalPrice(car.price)
+            TotalPrice(bookingData.dateBooking, car.price)
         }
 
         BackButton(onBackClick)
@@ -80,9 +92,11 @@ fun BackButton(onBackClick: () -> Unit) {
 @Composable
 fun ReservationButton(onReserveClick: () -> Unit) {
     Button(
-        onClick = { onReserveClick() },
+        onClick = {
+            onReserveClick()
+        },
         modifier = Modifier
-            .padding(top = 8.dp, bottom = 16.dp)
+            .padding(top = 8.dp)
             .height(56.dp)
             .fillMaxWidth(),
         shape = RoundedCornerShape(16.dp),
@@ -197,12 +211,12 @@ fun TextPair(label: String, value: String) {
 }
 
 @Composable
-fun TotalPrice(totalPrice: Double) {
+fun TotalPrice(date: DateBooking, totalPrice: Long) {
     Text(
         text = stringResource(R.string.price),
         style = CustomTextStyle.primary,
         modifier = Modifier
-            .padding(top = 24.dp)
+            .padding(top = 8.dp)
             .fillMaxWidth(),
     )
 
@@ -213,5 +227,5 @@ fun TotalPrice(totalPrice: Double) {
             .padding(vertical = 16.dp),
     )
 
-    Total(totalPrice)
+    Total(date, totalPrice)
 }

@@ -11,7 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.pogreb.leasingshift.R
-import com.pogreb.leasingshift.main.ui.Title
+import com.pogreb.leasingshift.shared.ui.components.Title
 
 @Composable
 fun OrdersScreen() {

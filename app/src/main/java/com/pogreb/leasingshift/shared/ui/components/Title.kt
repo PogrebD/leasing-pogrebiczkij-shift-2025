@@ -1,4 +1,4 @@
-package com.pogreb.leasingshift.main.ui
+package com.pogreb.leasingshift.shared.ui.components
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -15,7 +15,7 @@ fun Title(titleId: Int) {
         text = stringResource(titleId),
         style = CustomTextStyle.appTitle,
         modifier = Modifier
-            .padding(top = 16.dp, start = 16.dp, end = 16.dp)
+            .padding(top = 8.dp, start = 16.dp, end = 16.dp)
             .height(56.dp),
     )
 }

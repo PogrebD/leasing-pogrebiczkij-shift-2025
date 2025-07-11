@@ -1,4 +1,4 @@
-package com.pogreb.leasingshift.feature.carinfo.ui
+package com.pogreb.leasingshift.feature.carinfo.ui.components
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,14 +12,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.pogreb.leasingshift.R
+import com.pogreb.leasingshift.shared.domain.entity.DateBooking
+import com.pogreb.leasingshift.shared.ui.components.formatDateBooking
 import com.pogreb.leasingshift.ui.theme.TextPrimary
 import com.pogreb.leasingshift.ui.theme.TextSecondary
 
 @Composable
-fun Total(totalPrice: Double)
-{
+fun Total(date: DateBooking, totalPrice: Long) {
     Text(
-        text = stringResource(R.string.total_price, totalPrice.toLong()),
+        text = stringResource(R.string.total_price, totalPrice * date.numDays),
         style = TextStyle(
             color = TextPrimary,
             fontSize = 22.sp,
@@ -33,7 +34,7 @@ fun Total(totalPrice: Double)
     Spacer(modifier = Modifier.height(16.dp))
 
     Text(
-        text = stringResource(R.string.total_rent),
+        text = formatDateBooking(date),
         style = TextStyle(
             color = TextSecondary,
             fontSize = 16.sp,
